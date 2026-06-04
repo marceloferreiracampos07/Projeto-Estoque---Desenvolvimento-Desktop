@@ -58,6 +58,9 @@ if (loginForm) {
 // --- SISTEMA DE ESTOQUE ---
 const estoqueForm = document.getElementById('estoqueForm');
 const listaEstoque = document.getElementById('listaEstoque');
+const editIndexInput = document.getElementById('editIndex');
+const submitBtn = document.getElementById('submitBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 
 if (estoqueForm) {
     estoqueForm.addEventListener('submit', (e) => {
@@ -66,15 +69,38 @@ if (estoqueForm) {
         const categoria = document.getElementById('categoria').value;
         const quantidade = document.getElementById('quantidade').value;
         const preco = document.getElementById('preco').value;
+        const index = parseInt(editIndexInput.value);
 
         const estoque = JSON.parse(localStorage.getItem('estoque')) || [];
-        estoque.push({ item, categoria, quantidade, preco });
-        localStorage.setItem('estoque', JSON.stringify(estoque));
 
-        showMessage('Item adicionado!', 'success');
+        if (index === -1) {
+            // Adicionar novo
+            estoque.push({ item, categoria, quantidade, preco });
+            showMessage('Item adicionado!', 'success');
+        } else {
+            // Atualizar existente
+            estoque[index] = { item, categoria, quantidade, preco };
+            showMessage('Item atualizado!', 'success');
+            resetForm();
+        }
+
+        localStorage.setItem('estoque', JSON.stringify(estoque));
         estoqueForm.reset();
         atualizarTabelaEstoque();
     });
+}
+
+if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+        resetForm();
+        estoqueForm.reset();
+    });
+}
+
+function resetForm() {
+    editIndexInput.value = "-1";
+    submitBtn.textContent = "Cadastrar";
+    cancelBtn.style.display = "none";
 }
 
 function atualizarTabelaEstoque() {
@@ -101,6 +127,7 @@ function renderizarItens(itens) {
             <td class="${isBaixo ? 'low-stock' : ''}">${item.quantidade}</td>
             <td>R$ ${parseFloat(item.preco).toFixed(2)}</td>
             <td>
+                <button class="btn-small btn-edit" onclick="editarItemEstoque(${index})">Atualizar</button>
                 <button class="btn-small btn-danger" onclick="removerItemEstoque(${index})">Remover</button>
             </td>
         `;
@@ -113,6 +140,25 @@ function renderizarItens(itens) {
     
     if (totalItensEl) totalItensEl.textContent = itens.length;
     if (itensBaixoEl) itensBaixoEl.textContent = totalBaixo;
+}
+
+function editarItemEstoque(index) {
+    const estoque = JSON.parse(localStorage.getItem('estoque')) || [];
+    const item = estoque[index];
+
+    // Preencher o formulário
+    document.getElementById('item').value = item.item;
+    document.getElementById('categoria').value = item.categoria;
+    document.getElementById('quantidade').value = item.quantidade;
+    document.getElementById('preco').value = item.preco;
+    
+    // Configurar modo de edição
+    editIndexInput.value = index;
+    submitBtn.textContent = "Salvar Alterações";
+    cancelBtn.style.display = "block";
+    
+    // Rolar para o formulário
+    estoqueForm.scrollIntoView({ behavior: 'smooth' });
 }
 
 function removerItemEstoque(index) {

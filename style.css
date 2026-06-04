@@ -199,7 +199,7 @@ tr:hover {
     padding: 8px 14px;
     font-size: 11px;
     width: auto;
-    margin: 0;
+    margin: 2px;
     border-radius: 8px;
 }
 
@@ -210,6 +210,15 @@ tr:hover {
 
 .btn-danger:hover {
     box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.3);
+}
+
+.btn-edit {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+}
+
+.btn-edit:hover {
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
 }
 
 .search-bar {
