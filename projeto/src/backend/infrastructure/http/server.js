@@ -9,8 +9,31 @@ const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
+const allowedOrigins = [
+  /https:\/\/projeto-estoque-desenvolvimento-desktop.*\.vercel\.app$/,
+  'http://localhost:5500',
+  'http://127.0.0.1:5500',
+  'http://localhost:3000'
+];
+
 app.use(cors({
-  origin: [/https:\/\/projeto-estoque-desenvolvimento-desktop.*\.vercel\.app$/]
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const isAllowed = allowedOrigins.some(pattern => {
+      if (pattern instanceof RegExp) {
+        return pattern.test(origin);
+      }
+      return pattern === origin;
+    });
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
 app.use(express.json());
 

@@ -1,51 +1,75 @@
-# StockOS - Sistema de Gestão de Estoque Premium
+# StockOS - Gestão de Estoque Enterprise
 
-StockOS é uma aplicação desktop moderna e intuitiva para gerenciamento de inventário, desenvolvida com foco em agilidade, precisão e uma experiência de usuário excepcional. Com uma interface inspirada em softwares de alta performance, o StockOS oferece controle total sobre entradas, saídas e patrimônio de estoque.
+StockOS é uma solução robusta e moderna para gerenciamento de inventário, desenvolvida com uma arquitetura de alta performance, foco em segurança e experiência do usuário excepcional.
 
 ## 🚀 Funcionalidades
 
-- **Dashboard Inteligente:** Visualização em tempo real do patrimônio total em estoque, número de SKUs e alertas críticos.
-- **Gestão de Inventário Profissional:** Cadastro, edição e remoção de produtos com filtros de busca instantâneos.
-- **Alertas de Reposição:** Sistema automático de identificação de itens com estoque baixo para evitar rupturas.
-- **Segurança de Acesso:** Fluxo completo de Login e Cadastro de usuários com validações rigorosas de segurança.
-- **Interface Premium:** Design dark mode moderno com foco em usabilidade e feedback visual imediato.
+- **Dashboard em Tempo Real:** Monitoramento dinâmico de patrimônio, total de itens e alertas de estoque baixo.
+- **Gestão de Inventário Full-Stack:** Operações CRUD completas integradas a um backend persistente.
+- **Segurança Avançada:** 
+    - Autenticação via JWT (JSON Web Tokens).
+    - Criptografia de senhas com Argon2.
+    - Validação de dados rigorosa com Zod (Backend) e Regex (Frontend).
+- **Interface Premium:** Design moderno com foco em usabilidade, feedback visual imediato e responsividade.
+- **Arquitetura Limpa:** Organizado seguindo princípios de Clean Architecture e DDD (Domain-Driven Design).
+
+## 🛠️ Tecnologias Utilizadas
+
+### Backend
+- **Node.js & Express:** Servidor de alta performance.
+- **Sequelize ORM:** Gestão de banco de dados SQL (MySQL/PostgreSQL).
+- **Argon2:** Criptografia de senhas de última geração.
+- **JSON Web Token (JWT):** Segurança e controle de sessão.
+- **Zod:** Validação de esquemas e tipos de dados.
+
+### Frontend
+- **Vanilla JavaScript (ES6+):** Lógica modular e assíncrona.
+- **Fetch API:** Comunicação com o backend.
+- **CSS3 Moderno:** Custom properties, Flexbox e Grid para uma interface fluida.
+- **Vercel:** Hospedagem e deploy otimizado.
 
 ## 📁 Estrutura do Projeto
 
-O projeto segue uma arquitetura modular e organizada:
+O projeto é dividido em duas camadas principais:
 
 ```text
 projeto/
 └── src/
-    └── renderer/
-        ├── css/          # Estilos base e específicos por página
-        ├── js/           # Lógica modular e funções compartilhadas
-        └── views/        # Páginas HTML da aplicação
+    ├── backend/          # API REST com Clean Architecture
+    │   ├── application/  # Casos de uso e DTOs
+    │   ├── domain/       # Entidades e interfaces de repositório
+    │   └── infrastructure/# Implementações técnicas (DB, HTTP, Config)
+    └── renderer/         # Frontend da aplicação
+        ├── css/          # Estilização modular
+        ├── js/           # Lógica do cliente e apiClient
+        └── views/        # Estrutura HTML
 ```
 
-- `base.css` / `common.js`: Núcleo compartilhado de estilos e funções.
-- Arquivos individuais por página (Ex: `index.css`, `index.js`): Mantêm o código limpo e de fácil manutenção.
+## ⚙️ Instalação e Configuração
 
-## 🛠️ Tecnologias Utilizadas
+### Pré-requisitos
+- Node.js (v18+)
+- Banco de Dados SQL (MySQL recomendado)
 
-- **Electron:** Framework para criação de aplicações desktop com tecnologias web.
-- **JavaScript (ES6+):** Lógica da aplicação e manipulação dinâmica de dados.
-- **CSS3:** Estilização avançada com variáveis, Grid Layout e Flexbox.
-- **LocalStorage:** Persistência de dados local para usuários e inventário.
-
-## ⚙️ Como Executar
-
-1. Certifique-se de ter o [Node.js](https://nodejs.org/) instalado.
-2. Clone o repositório.
-3. No terminal, na raiz do projeto, instale as dependências:
+### Configuração do Backend
+1. Navegue até `src/backend`.
+2. Copie o arquivo `.env.example` para `.env`.
+3. Preencha as credenciais do seu banco de dados e defina um `JWT_SECRET`.
+4. Instale as dependências e inicie:
    ```bash
    npm install
+   npm run dev
    ```
-4. Inicie a aplicação:
-   ```bash
-   npm start
-   ```
+
+### Configuração do Frontend
+1. Navegue até `src/renderer`.
+2. Os scripts utilizam o `apiClient.js` que detecta automaticamente se a API está rodando localmente ou em produção.
+3. Se estiver em desenvolvimento, certifique-se de que o backend está rodando na porta 3000.
+
+## 🛡️ Segurança e Boas Práticas
+- Variáveis de ambiente protegidas e ignoradas pelo controle de versão.
+- Proteção contra CORS configurada para domínios específicos.
+- Tratamento global de erros e validações de input tanto no cliente quanto no servidor.
 
 ## 📄 Licença
-
 Este projeto está sob a licença ISC.
