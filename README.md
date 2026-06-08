@@ -76,37 +76,37 @@ The backend is structured to decouple business rules from external technologies.
 
 ## 🚦 Getting Started
 
-### Prerequisites
+### Pré-requisitos
 - Node.js 18+
 - MySQL Database
-- Docker Desktop (for backend infrastructure)
+- Docker Desktop (para a infraestrutura do backend)
 
-### Quick Start Workflow
+### Fluxo de Início Rápido
 
-1. **Clone the repository:**
+1. **Clone o repositório:**
    ```bash
    git clone https://github.com/marceloferreiracampos07/Projeto-Estoque---Desenvolvimento-Desktop.git
    cd Projeto-Estoque---Desenvolvimento-Desktop
    ```
 
-2. **Install dependencies:**
+2. **Instale as dependências:**
    ```bash
-   # From the project root
+   # Na raiz do projeto
    npm install
-   # From the backend directory
+   # Na pasta do backend
    cd projeto/src/backend
    npm install
    cd ../../..
    ```
 
-3. **Start Backend Infrastructure (Docker):**
+3. **Inicie a Infraestrutura do Backend (Docker):**
    ```bash
    cd projeto/src/backend
    docker-compose up -d
    cd ../../..
    ```
 
-4. **Start Desktop Application (Electron):**
+4. **Inicie a Aplicação Desktop (Electron):**
    ```bash
    npm start
    ```
