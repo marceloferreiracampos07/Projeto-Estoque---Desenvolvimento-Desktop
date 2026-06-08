@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
   <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
   <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white" />
-  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" />
+  <img src="https://img.shields.io/badge/Electron-47848F?style=for-the-badge&logo=electron&logoColor=white" />
 </p>
 
 <p align="center">
@@ -28,7 +28,6 @@
 - [About the Project](#-about-the-project)
 - [Key Features](#-key-features)
 - [System Architecture](#-system-architecture)
-- [SOLID Principles](#-solid-principles-applied)
 - [Tech Stack](#-tech-stack)
 - [Getting Started](#-getting-started)
 - [Project Summary](#-project-summary-latest-updates)
@@ -58,21 +57,8 @@ The backend is structured to decouple business rules from external technologies.
 - **Infrastructure Layer:** Handles database persistence (Sequelize), HTTP (Express), and configurations.
 
 ### 🧩 Domain-Driven Design (DDD)
-- **Ubiquitous Language:** Code reflects business terms (Product, Inventory, StockAlert).
 - **Repository Pattern:** Abstracted data access layers for scalability and testability.
 - **DTOs:** Strict data transfer objects using **Zod** for schema validation.
-
----
-
-## 🛡️ SOLID Principles Applied
-
-StockOS is built on a foundation of maintainable software design:
-
-- **S - SRP:** Controllers only handle HTTP requests; Use Cases only handle business logic.
-- **O - OCP:** New features (like new repository types) can be added without modifying existing business rules.
-- **L - LSP:** Repository implementations can be swapped without breaking the service layer.
-- **I - ISP:** Interfaces are lean and focused on specific domain needs.
-- **D - DIP:** High-level modules depend on abstractions, ensuring the core logic is never coupled to a specific DB or framework.
 
 ---
 
@@ -81,10 +67,10 @@ StockOS is built on a foundation of maintainable software design:
 | Category | Technology |
 | :--- | :--- |
 | **Backend** | Node.js, Express |
+| **Desktop** | Electron |
 | **Database** | MySQL, Sequelize ORM |
 | **Security** | Argon2, JWT, Zod |
 | **Frontend** | Vanilla JS (ES6+), CSS3 Modern |
-| **Deployment** | Vercel (Frontend), Render (Backend) |
 
 ---
 
@@ -93,21 +79,37 @@ StockOS is built on a foundation of maintainable software design:
 ### Prerequisites
 - Node.js 18+
 - MySQL Database
+- Docker Desktop (for backend infrastructure)
 
-### Quick Start
-```bash
-# Clone the repository
-git clone https://github.com/marceloferreiracampos07/Projeto-Estoque---Desenvolvimento-Desktop.git
+### Quick Start Workflow
 
-# Setup Backend
-cd src/backend
-npm install
-# Configure .env based on .env.example
-npm run dev
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/marceloferreiracampos07/Projeto-Estoque---Desenvolvimento-Desktop.git
+   cd Projeto-Estoque---Desenvolvimento-Desktop
+   ```
 
-# Setup Frontend
-# Just open src/renderer/views/index.html or serve it locally
-```
+2. **Install dependencies:**
+   ```bash
+   # From the project root
+   npm install
+   # From the backend directory
+   cd projeto/src/backend
+   npm install
+   cd ../../..
+   ```
+
+3. **Start Backend Infrastructure (Docker):**
+   ```bash
+   cd projeto/src/backend
+   docker-compose up -d
+   cd ../../..
+   ```
+
+4. **Start Desktop Application (Electron):**
+   ```bash
+   npm start
+   ```
 
 ---
 
@@ -118,25 +120,22 @@ npm run dev
 ### 📊 Relatório de Atividades - StockOS
 
 #### 1. Segurança & Infraestrutura
-- Implementação de variáveis de ambiente para JWT e Banco de Dados.
-- Configuração de CORS para suporte a desenvolvimento local e produção.
-- Proteção de arquivos sensíveis via `.gitignore`.
+- Implementação de Docker para banco de dados e API.
+- Configuração de variáveis de ambiente.
 
-#### 2. Refatoração Clean Code (Finalizado)
-- Padronização de nomenclatura para English camelCase.
-- Remoção de comentários redundantes e "noise".
-- Modularização do `apiClient` e lógica de autenticação.
+#### 2. Desktop Integration
+- Integração total com Electron para execução como app desktop.
+- Correção de navegação e ajustes de UI (janela responsiva).
 
 #### 3. UX & Fixes (Finalizado)
-- Correção do loop de redirecionamento no login.
-- Sincronização em tempo real do Dashboard com a API.
-- Validação de segurança em tempo real no cadastro de usuários.
+- Ajustes finos na interface (Botões e menus).
+- Correção de navegação no ambiente Electron.
 
 #### 🚀 Status Final
 | Módulo | Qualidade | Status |
 | :--- | :--- | :--- |
-| **Backend API** | Senior Refactored | 🟢 Production Ready |
-| **Frontend UI** | Clean & Modern | 🟢 Production Ready |
+| **Desktop App** | Electron Integrated | 🟢 Production Ready |
+| **Backend API** | Dockerized | 🟢 Production Ready |
 </details>
 
 ---
